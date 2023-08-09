@@ -1,10 +1,13 @@
-
+require('dotenv').config()
 const createError = require('http-errors');
 const express = require('express');
 const { Collection, default: mongoose } = require('mongoose');
 const app = express()
 const Product = require('./models/productModel')
 // const { MongoClient } = require('mongodb');
+
+const MONGO_URL = process.env.MONGO_URL
+
 app.use(express.urlencoded({ extended: false }))
 
 app.use(express.json())
@@ -154,7 +157,7 @@ app.use((err, req, res, next) => {
 
 
 
-mongoose.connect('mongodb+srv://prateek:prateek@cluster0.trxe10c.mongodb.net/')
+mongoose.connect(MONGO_URL)
     .then(() => {
         console.log("Database connected succesfully :)");
         app.listen(3000, (err) => {
