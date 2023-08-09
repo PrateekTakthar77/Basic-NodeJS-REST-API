@@ -5,6 +5,7 @@ const { Collection, default: mongoose } = require('mongoose');
 const app = express()
 const Product = require('./models/productModel')
 // const { MongoClient } = require('mongodb');
+app.use(express.urlencoded({ extended: false }))
 
 app.use(express.json())
 
@@ -94,7 +95,8 @@ app.put('/products/:id', async (req, res, next) => {
         if (!product) {
             res.status(403).json({ message: `cannot find any product with id ${id}` })
         }
-        res.status(200).json(product);
+        const updatedProduct = await Product.findById(id);
+        res.status(200).json(updatedProduct);
     } catch (error) {
         console.log(error)
         res.status(500).json({ message: error.message })
