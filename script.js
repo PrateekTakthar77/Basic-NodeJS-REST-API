@@ -87,7 +87,7 @@ app.get('/products:id', async (req, res, next) => {
         res.status(503).json({ message: error.message })
     }
 })
-
+// get Single Product by ID and update
 app.put('/products/:id', async (req, res, next) => {
     try {
         const { id } = req.params;
@@ -102,7 +102,7 @@ app.put('/products/:id', async (req, res, next) => {
         res.status(500).json({ message: error.message })
     }
 });
-
+// create Product
 app.post('/products', async (req, res) => {
     try {
         const product = await Product.create(req.body)
@@ -112,6 +112,20 @@ app.post('/products', async (req, res) => {
         res.status(503).json({ message: error.message })
     }
 });
+// delete Product
+app.delete('/products/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const product = await Product.findByIdAndDelete(id)
+        if (!product) {
+            res.status(403).json({ message: `cannot find any product with id ${id}` })
+        }
+        res.status(200).json(product);
+    } catch (error) {
+        console.log(error)
+        res.status(503).json({ message: error.message })
+    }
+})
 
 app.post('/post/:id/friends/:id2', (req, res, next) => {
     User.findById(req.params.id)
