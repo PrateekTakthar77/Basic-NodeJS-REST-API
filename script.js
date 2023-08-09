@@ -87,6 +87,20 @@ app.get('/products:id', async (req, res, next) => {
     }
 })
 
+app.put('/products/:id', async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        const product = await Product.findByIdAndUpdate(id, req.body)
+        if (!product) {
+            res.status(403).json({ message: `cannot find any product with id ${id}` })
+        }
+        res.status(200).json(product);
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({ message: error.message })
+    }
+});
+
 app.post('/products', async (req, res) => {
     try {
         const product = await Product.create(req.body)
