@@ -64,10 +64,23 @@ app.get('/employees', (req, res, next) => {
 //     })
 // })
 
+// get all products
 app.get('/products', async (req, res, next) => {
     try {
         const products = await Product.find({})
         res.status(200).json(products);
+    } catch (error) {
+        console.log(error)
+        res.status(503).json({ message: error.message })
+    }
+})
+
+// get Single Product by ID
+app.get('/products:id', async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        const product = await Product.findById(id)
+        res.status(200).json(product);
     } catch (error) {
         console.log(error)
         res.status(503).json({ message: error.message })
