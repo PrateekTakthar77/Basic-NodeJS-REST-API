@@ -3,8 +3,8 @@ const createError = require('http-errors');
 const express = require('express');
 const { Collection, default: mongoose } = require('mongoose');
 const app = express()
-const Product = require('./models/productModel')
-const productRoute = require('./routes/product.route')
+// const Product = require('./models/productModel')
+const productRoute = require('./routes/product.routes')
 
 
 const MONGO_URL = process.env.MONGO_URL
