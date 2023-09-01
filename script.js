@@ -5,7 +5,7 @@ const { Collection, default: mongoose } = require('mongoose');
 const app = express()
 // const Product = require('./models/productModel')
 const productRoute = require('./routes/product.routes')
-
+const categoryRoutes = require('./routes/category.routes')
 
 const MONGO_URL = process.env.MONGO_URL
 const PORT = process.env.PORT || 3000
@@ -15,6 +15,7 @@ app.use(express.json())
 
 // Routes
 app.use('/api/products', productRoute)
+app.use('/api/category', categoryRoutes)
 
 app.get('/', (req, res, next) => {
     res.status(200).json({

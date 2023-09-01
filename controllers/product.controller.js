@@ -90,12 +90,12 @@ const deleteProduct = async (req, res) => {
 
 const updatePricesByCategory = async (req, res) => {
     try {
-        const { category, newPrice } = req.body;
+        const { category, newPrice, newQuantity } = req.body;
 
         // Update the prices of products with the same category
         const updateResult = await Product.updateMany(
             { category: category },
-            { $set: { price: newPrice } }
+            { $set: { price: newPrice, quantity: newQuantity } },
         );
 
         if (updateResult.nModified === 0) {

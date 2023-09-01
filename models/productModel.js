@@ -10,6 +10,10 @@ const productschema = mongoose.Schema(
             type: Number,
             required: true
         },
+        margin: {
+            type: Number,
+            required: true
+        },
         quantity: {
             type: Number,
             required: true,
@@ -18,11 +22,18 @@ const productschema = mongoose.Schema(
         image: {
             type: String,
             required: false
+        },
+        count: {
+            type: Number,
+            default: 0
+        },
+        category: {
+            type: String,
         }
     },
     {
         timestamps: true
-    }
+    },
 )
 
 const Product = mongoose.model("product", productschema);
