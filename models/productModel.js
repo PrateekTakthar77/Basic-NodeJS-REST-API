@@ -18,11 +18,18 @@ const productschema = mongoose.Schema(
         image: {
             type: String,
             required: false
+        },
+        count: {
+            type: Number,
+            default: 0
+        },
+        category: {
+            type: String,
         }
     },
     {
         timestamps: true
-    }
+    },
 )
 
 const Product = mongoose.model("product", productschema);
