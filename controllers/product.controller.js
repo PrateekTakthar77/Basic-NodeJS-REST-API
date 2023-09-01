@@ -1,4 +1,5 @@
 const Product = require('../models/productModel');
+const Margin = require('../models/categoryModel')
 
 // get all products
 const getAllProducts = async (req, res, next) => {
@@ -39,8 +40,45 @@ const getProductByIdUpdate = async (req, res, next) => {
 // create Product
 const createProduct = async (req, res) => {
     try {
+        // const { category } = req.body;
+        // // Find the corresponding Margin document for the category
+        // const margin = await Margin.findOne({ category });
+
+        // if (!margin) {
+        //     return res.status(404).json({ message: "Category not found in Margin collection" });
+        // }
+
+        const { category, subcategory } = req.body;
+        let quantity;
+
+        // Find the corresponding Margin document based on category and subcategory
+        if (category === "chains") {
+            // Check both category and subcategory
+            const margin = await Margin.findOne({ category, subcategory });
+
+            if (!margin) {
+                return res.status(404).json({ message: "Category and subcategory not found in Margin collection" });
+            }
+
+            quantity = margin.quantity;
+        } else {
+            // If category is not "chains," only check category
+            const margin = await Margin.findOne({ category });
+
+            if (!margin) {
+                return res.status(404).json({ message: "Category not found in Margin collection" });
+            }
+
+            quantity = margin.quantity;
+        }
+        // Use the retrieved quantity to set the product's quantity
+        const productData = {
+            ...req.body,
+            // quantity: margin.quantity,
+            quantity
+        };
         // Increment product count in the database
-        const product = await Product.create(req.body)
+        const product = await Product.create(productData)
         await Product.updateMany({}, { $inc: { count: 1 } });
         res.status(200).json(product);
     } catch (error) {

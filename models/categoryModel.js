@@ -4,6 +4,9 @@ const marginSchema = new mongoose.Schema({
     category: {
         type: String
     },
+    subcategory: {
+        type: String
+    },
     quantity: {
         type: Number,
         required: true,

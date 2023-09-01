@@ -12,11 +12,10 @@ const productschema = mongoose.Schema(
         },
         margin: {
             type: Number,
-            required: true
+
         },
         quantity: {
             type: Number,
-            required: true,
             default: 0
         },
         image: {
