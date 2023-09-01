@@ -40,6 +40,7 @@ const getProductByIdUpdate = async (req, res, next) => {
 // create Product
 const createProduct = async (req, res) => {
     try {
+        // without if condition 
         // const { category } = req.body;
         // // Find the corresponding Margin document for the category
         // const margin = await Margin.findOne({ category });
