@@ -3,6 +3,7 @@ const createError = require('http-errors');
 const express = require('express');
 const { Collection, default: mongoose } = require('mongoose');
 const app = express()
+const nodemailer = require("nodemailer")
 // const Product = require('./models/productModel')
 const productRoute = require('./routes/product.routes')
 const categoryRoutes = require('./routes/category.routes')
