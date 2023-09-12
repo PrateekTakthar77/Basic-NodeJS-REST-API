@@ -3,8 +3,18 @@ const Margin = require('../models/categoryModel')
 
 // get all products
 const getAllProducts = async (req, res, next) => {
+    const { search } = req.query;
     try {
-        const products = await Product.find({})
+        let products;
+        if (search) {
+            products = await Product.find({
+                $or: [
+                    { name: new RegExp(search, 'i') },
+                ],
+            });
+        } else {
+            products = await Product.find();
+        }
         res.status(200).json(products);
     } catch (error) {
         console.log(error)
