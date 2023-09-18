@@ -164,4 +164,5 @@ const updatePricesByCategory = async (req, res) => {
     }
 };
 
+
 module.exports = { getAllProducts, getProductById, getProductByIdUpdate, createProduct, deleteProduct, addMultipleProducts, updatePricesByCategory };
